@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import "./App.css"; // <-- Import the CSS
 
 const App = () => {
-  const [city, setCity] = useState("malad");
+  const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
 
   const getWeather = async () => {
@@ -17,23 +18,26 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Weather App</h1>
-      <input
-        type="text"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-      />
-      <button onClick={getWeather}>Get Weather</button>
+    <div className="weather-app">
+      <h1>Sky Teller</h1>
+      <div className="weather-display">
+        <input
+          type="text"
+          placeholder="Enter your location"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <button onClick={getWeather}>Submit</button>
 
-      {weather && (
-        <div>
-          <h2>{weather.location.name}</h2>
-          <p>{weather.current.temp_c}°C</p>
-          <p>{weather.current.condition.text}</p>
-          <img src={weather.current.condition.icon} alt="icon" />
-        </div>
-      )}
+        {weather && (
+          <div className="weather-info">
+            <h2>{weather.location.name}</h2>
+            <p>{weather.current.temp_c}°C</p>
+            <p>{weather.current.condition.text}</p>
+            <img src={weather.current.condition.icon} alt="icon" />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
