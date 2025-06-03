@@ -1,15 +1,18 @@
 import axios from "axios";
-import { useState } from "react";
-import "./App.css"; // <-- Import the CSS
+import { useEffect, useState } from "react";
+import "./App.css";
 
 const App = () => {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
 
-  const getWeather = async () => {
+  const toggleDarkMode = () => setDarkMode(!darkMode);
+
+  const getWeather = async (cityName) => {
     try {
       const response = await axios.get(
-        `https://api.weatherapi.com/v1/current.json?key=06d1253f3668475d80895121250705&q=${city}&aqi=yes`
+        `https://api.weatherapi.com/v1/current.json?key=06d1253f3668475d80895121250705&q=${cityName}&aqi=yes`
       );
       setWeather(response.data);
     } catch (error) {
@@ -17,9 +20,28 @@ const App = () => {
     }
   };
 
+  const detectLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      getWeather(`${latitude},${longitude}`);
+    });
+  };
+
+  useEffect(() => {
+    detectLocation();
+  }, []);
+
   return (
-    <div className="weather-app">
-      <h1>Sky Teller</h1>
+    <div className={`weather-app ${darkMode ? "dark" : ""}`}>
+      <nav className="navbar">
+        <h1>🌤️ Sky Teller</h1>
+        <div className="nav-controls">
+          <button onClick={toggleDarkMode}>
+            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+          </button>
+        </div>
+      </nav>
+
       <div className="weather-display">
         <input
           type="text"
@@ -27,10 +49,10 @@ const App = () => {
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
-        <button onClick={getWeather}>Submit</button>
+        <button onClick={() => getWeather(city)}>Submit</button>
 
         {weather && (
-          <div className="weather-info">
+          <div className="weather-info fade-in">
             <h2>{weather.location.name}</h2>
             <p>{weather.current.temp_c}°C</p>
             <p>{weather.current.condition.text}</p>

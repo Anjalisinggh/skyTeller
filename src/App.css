@@ -1,50 +1,74 @@
-/* App.css */
-
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0ffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background: #faffca;
+  transition: background 0.3s ease;
+}
+
+.weather-app.dark {
+  background: #1e1e1e;
+  color: #fff;
 }
 
 .weather-app {
-  background: linear-gradient(to right, #06353c, #357e84);
-  overflow-x: hidden;
-  border-radius: 25px;
-  padding: 1rem;
-  width: 90%;
-  max-width: 900px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.weather-app h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.8rem;
+.navbar {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  background: linear-gradient(to right, #4f867e, #76b0a5);
   color: white;
-  text-align: left;
-  margin-left: 2rem;
-  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.weather-app.dark .navbar {
+  background: #2f2f2f;
+}
+
+.nav-controls button {
+  background: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav-controls button:hover {
+  background: #cceeff;
 }
 
 .weather-display {
-  
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(to bottom right, #a8dadc, #f1faee);
+  padding: 2rem;
   border-radius: 30px;
-  padding: 3rem 2rem;
-  margin: 2rem;
-  color: white;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-  position: relative;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.weather-app.dark .weather-display {
+  background: #333;
 }
 
 input[type="text"] {
-  width: 280px;
+  width: 80%;
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: none;
@@ -55,11 +79,11 @@ input[type="text"] {
 
 button {
   padding: 0.5rem 1.2rem;
-  background: white;
+  background: #fff;
   border: none;
   border-radius: 20px;
   font-weight: bold;
-  margin-left: 0.5rem;
+  margin: 0.5rem;
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -77,10 +101,50 @@ button:hover {
   font-size: 1.2rem;
   margin: 0.3rem 0;
 }
+
 .weather-info img {
   width: 100px;
   height: 100px;
 }
-.weather-info {
-  text-align: center;
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .weather-display {
+    padding: 1.5rem 1rem;
+  }
+}
+@media (max-width: 400px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .weather-display {
+    padding: 1rem;
+  }
+
+  input[type="text"] {
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+  }
 }
