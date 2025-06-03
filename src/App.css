@@ -3,31 +3,34 @@ body {
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #faffca;
+  overflow: hidden;
   transition: background 0.3s ease;
 }
 
 .weather-app.dark {
-  background: #1e1e1e;
+  background: #1f0339;
   color: #fff;
 }
 
 .weather-app {
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem 1rem;
+   padding: 0 1rem 2rem 1rem;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
 .navbar {
   width: 100%;
-  max-width: 900px;
+  max-width: auto;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  border-radius: 20px;
+ padding: 0.5rem 1rem;   
+  border-radius: 10px;
   background: linear-gradient(to right, #4f867e, #76b0a5);
   color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -35,7 +38,7 @@ body {
 }
 
 .weather-app.dark .navbar {
-  background: #2f2f2f;
+  background: #0e0351;
 }
 
 .nav-controls button {
@@ -64,8 +67,7 @@ body {
 }
 
 .weather-app.dark .weather-display {
-  background: #333;
-}
+background-image: radial-gradient(circle, #1c1257, #0d1f5b, #01285d, #01315c, #0f385a);}
 
 input[type="text"] {
   width: 80%;
