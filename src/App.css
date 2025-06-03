@@ -13,6 +13,7 @@ body {
 
 .weather-app {
   background: linear-gradient(to right, #06353c, #357e84);
+  overflow-x: hidden;
   border-radius: 25px;
   padding: 1rem;
   width: 90%;
