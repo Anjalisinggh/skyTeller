@@ -10,8 +10,6 @@ const App = () => {
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
   const getWeather = async (cityName) => {
     try {
       const response = await axios.get(
@@ -19,7 +17,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
       );
       const data = response.data;
       setWeather(data);
-      generateAITip(data.current); // fetch AI-based tip after weather data is received
+      generateAITip(data.current); // call AI tip after weather fetch
     } catch (error) {
       console.error("Error fetching weather:", error);
     }
@@ -46,20 +44,12 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     const prompt = `Give me a short wellness suggestion for someone experiencing ${weather.temp_c}°C, UV Index ${weather.uv}, and air quality PM2.5 ${weather.air_quality.pm2_5}. Keep it casual and friendly.`;
 
     try {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt }]
-        })
+      const response = await axios.post("http://localhost:5000/api/chat", {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: prompt }],
       });
 
-      const data = await res.json();
-      const gptTip = data.choices[0].message.content;
+      const gptTip = response.data.choices[0].message.content;
       setWellnessTip(gptTip);
     } catch (error) {
       console.warn("GPT failed, using rule-based tip.");
@@ -74,11 +64,9 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
   return (
     <div className={`weather-app ${darkMode ? "dark" : ""}`}>
       <nav className="navbar">
-        <h1>🌤️ Sky Teller</h1>
+        <h1 className="navbar-title">Sky Teller</h1>
         <div className="nav-controls">
           <button onClick={toggleDarkMode}>
-           
-
             {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
           </button>
         </div>
@@ -107,7 +95,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
           </div>
         )}
       </div>
-   
+
       <footer className="footer">
         <p>Made with 🤍 by Anjali</p>
       </footer>

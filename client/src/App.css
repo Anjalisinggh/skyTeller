@@ -1,35 +1,43 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+/* Global Reset & Smooth Transitions */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #faffca;
-  overflow: hidden;
-  transition: background 0.3s ease;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: radial-gradient(circle, #596578, #5c8795, #6ea9a1, #a0c7a1, #e6dea5);
+  overflow-x: hidden;
+}
+
+/* DARK MODE STYLES */
 .weather-app.dark {
   background: #1f0339;
   color: #fff;
 }
 
+/* MAIN APP WRAPPER */
 .weather-app {
   display: flex;
-  overflow: hidden;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-   padding: 0 1rem 2rem 1rem;
-  transition: background 0.3s ease, color 0.3s ease;
+  padding: 0 1rem 2rem 1rem;
 }
 
+/* NAVBAR */
 .navbar {
   width: 100%;
-  max-width: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
- padding: 0.5rem 1rem;   
+  padding: 0.5rem 1rem;
   border-radius: 10px;
   background: linear-gradient(to right, #4f867e, #76b0a5);
   color: white;
@@ -41,6 +49,21 @@ body {
   background: #0e0351;
 }
 
+.navbar-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-title:hover {
+  transform: scale(1.05);
+  color: #e0f7fa;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+
 .nav-controls button {
   background: white;
   border: none;
@@ -48,13 +71,14 @@ body {
   border-radius: 20px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 .nav-controls button:hover {
   background: #cceeff;
+  box-shadow: 0 0 10px #cceeff;
 }
 
+/* WEATHER DISPLAY */
 .weather-display {
   background: linear-gradient(to bottom right, #a8dadc, #f1faee);
   padding: 2rem;
@@ -62,13 +86,19 @@ body {
   max-width: 400px;
   width: 100%;
   text-align: center;
-  transition: background 0.3s ease;
   box-shadow: 0 4px 16px rgba(41, 50, 55, 0.2);
 }
 
-.weather-app.dark .weather-display {
-background-image: radial-gradient(circle, #1c1257, #0d1f5b, #01285d, #01315c, #0f385a);}
+.weather-display:hover {
+  box-shadow: 0 6px 20px rgba(100, 100, 255, 0.2);
+  transform: scale(1.01);
+}
 
+.weather-app.dark .weather-display {
+  background-image: radial-gradient(circle, #1c1257, #0d1f5b, #01285d, #01315c, #0f385a);
+}
+
+/* INPUT */
 input[type="text"] {
   width: 80%;
   padding: 0.7rem 1rem;
@@ -79,6 +109,7 @@ input[type="text"] {
   outline: none;
 }
 
+/* GENERAL BUTTONS */
 button {
   padding: 0.5rem 1.2rem;
   background: #fff;
@@ -87,13 +118,14 @@ button {
   font-weight: bold;
   margin: 0.5rem;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
 button:hover {
   background: #cceeff;
+  box-shadow: 0 0 10px #cceeff;
 }
 
+/* WEATHER INFO */
 .weather-info h2 {
   font-size: 2rem;
   margin: 0.5rem 0;
@@ -109,18 +141,100 @@ button:hover {
   height: 100px;
 }
 
+/* FADE-IN ANIMATION */
 .fade-in {
   animation: fadeIn 1s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* WELLNESS CARD */
+.wellness-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: #222;
+  font-size: 1.1rem;
+}
+
+.weather-app.dark .wellness-card {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.wellness-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.wellness-card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.wellness-card p,
+.wellness-card ul {
+  margin: 0.5rem 0;
+  line-height: 1.5;
+}
+
+.wellness-card a {
+  color: #4f867e;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.wellness-card a:hover {
+  text-decoration: underline;
+}
+
+.wellness-card ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.wellness-card li {
+  margin: 0.3rem 0;
+}
+
+.wellness-card img,
+.wellness-card video,
+.wellness-card audio {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+
+/* FOOTER */
+.footer {
+  margin-top: auto;
+  padding: 1.2rem;
+  
+  font-size: 1rem;
+  color: #1c1c1c;
+  text-align: center;
+}
+
+.weather-app.dark .footer {
+  color: #cceeff;
+}
+
+/* RESPONSIVE DESIGN */
 @media (max-width: 600px) {
   .navbar {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
 
@@ -132,6 +246,7 @@ button:hover {
     padding: 1.5rem 1rem;
   }
 }
+
 @media (max-width: 400px) {
   .navbar {
     padding: 1rem;
@@ -150,75 +265,3 @@ button:hover {
     font-size: 0.9rem;
   }
 }
-
-.wellness-card {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(6px);
-  padding: 1rem;
-  margin-top: 1rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  color: #222;
-  font-size: 1.1rem;
-  transition: all 0.3s ease-in-out;
-}
-
-.weather-app.dark .wellness-card {
-  background: rgba(0, 0, 0, 0.3);
-  color: #fff;
-}
-.wellness-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-.wellness-card h3 {
-  margin: 0;
-  font-size: 1.4rem;
-}
-.wellness-card p {
-  margin: 0.5rem 0;
-  line-height: 1.5;
-}
-.wellness-card a {
-  color: #4f867e;
-  text-decoration: none;
-  font-weight: bold;
-}
-.wellness-card a:hover {
-  text-decoration: underline;
-}
-.wellness-card ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin: 0.5rem 0;
-}
-.wellness-card li {
-  margin: 0.3rem 0;
-}
-.wellness-card img {
-  max-width: 100%;
-  border-radius: 10px;
-  margin-top: 0.5rem;
-}
-.wellness-card video {
-  max-width: 100%;
-  border-radius: 10px;
-  margin-top: 0.5rem;
-}
-.wellness-card audio {
-  width: 100%;
-  margin-top: 0.5rem;
-  border-radius: 10px;
-}
-.footer {
-  margin-top: auto;
-  padding: 1rem;
-  text-align: center;
-  
-  width: 100%;
- 
-}
-.weather-app.dark .footer {
-  color: #ccc;
-}
-
