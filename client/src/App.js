@@ -82,7 +82,7 @@ const App = () => {
             <img src={weather.current.condition.icon} alt="icon" />
 
             <div className="wellness-card">
-              <h3>🧘 Wellness Tip</h3>
+              <h3>🤍 Wellness Tip</h3>
               <p>{wellnessTip}</p>
             </div>
           </div>
