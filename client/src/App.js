@@ -17,7 +17,8 @@ const App = () => {
       );
       const data = response.data;
       setWeather(data);
-      generateAITip(data.current); // call AI tip after weather fetch
+      const tip = generateRuleBasedTip(data.current);
+      setWellnessTip(tip);
     } catch (error) {
       console.error("Error fetching weather:", error);
     }
@@ -31,30 +32,22 @@ const App = () => {
   };
 
   const generateRuleBasedTip = (weather) => {
-    const { uv, air_quality, humidity, feelslike_c } = weather;
+    const { uv, air_quality, humidity, feelslike_c, condition } = weather;
 
-    if (uv > 7) return "☀️ High UV levels – Don’t forget SPF!";
-    if (air_quality?.pm2_5 > 50) return "🌫️ Low air quality – Try indoor stretches today.";
-    if (humidity > 80) return "💧 Very humid – Stay hydrated and avoid intense workouts.";
-    if (feelslike_c < 15) return "🧣 It's chilly – Keep warm and maybe enjoy a hot drink!";
-    return "🌤️ Beautiful weather – A perfect day for a walk or some yoga!";
-  };
+    const weatherText = condition?.text?.toLowerCase() || "";
 
-  const generateAITip = async (weather) => {
-    const prompt = `Give me a short wellness suggestion for someone experiencing ${weather.temp_c}°C, UV Index ${weather.uv}, and air quality PM2.5 ${weather.air_quality.pm2_5}. Keep it casual and friendly.`;
+    if (weatherText.includes("rain"))
+      return "🌧️ It's rainy – Try indoor yoga or meditation today.";
+    if (uv > 7)
+      return "☀️ High UV levels – Don’t forget your sunscreen!";
+    if (air_quality?.pm2_5 > 50)
+      return "🌫️ Air quality is low – Prefer indoor exercises.";
+    if (humidity > 80)
+      return "💧 Very humid – Stay hydrated and cool.";
+    if (feelslike_c < 15)
+      return "🧣 It’s cold – Bundle up and maybe enjoy a warm cup of tea.";
 
-    try {
-      const response = await axios.post("http://localhost:5000/api/chat", {
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: prompt }],
-      });
-
-      const gptTip = response.data.choices[0].message.content;
-      setWellnessTip(gptTip);
-    } catch (error) {
-      console.warn("GPT failed, using rule-based tip.");
-      setWellnessTip(generateRuleBasedTip(weather));
-    }
+    return "🌤️ Lovely weather – Great day for a walk or outdoor stretch!";
   };
 
   useEffect(() => {
